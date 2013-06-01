@@ -1,0 +1,31 @@
+<h1><%= @playlist.name %></h1>
+
+<%= form_tag("/searches", :method => "post") do %>
+  <div class="field">
+    <%= text_field_tag :query %>
+    <%= hidden_field_tag :playlist_id, @playlist.id %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Search for Songs" %>
+  </div>
+<% end %>
+
+<h1>Search Results</h1>
+<% unless @results.nil? %>
+  <% @results.each do |result| %>
+    <ul>
+      <li><%= result.title %> | <%= link_to "Add to Playlist", songs_path(:t => result.title, :id => result.youtube_id, :pic => result.thumbnail, :playlist_id => @playlist.id), :method => "post" %></li>
+    </ul>
+  <% end %>
+<% end %>
+
+<h1>Songs</h1>
+<% if @playlist.songs.empty? %>
+  <h3>No Songs have been added yet!</h3>
+<% else %>
+  <h3><% @playlist.songs.each do |song| %></h3>
+    <ul>
+      <li><%= song.title %> | <%= link_to "remove", remove_song_path(:playlist_id => @playlist.id, :song_id => song.id) %> </li>
+    </ul>
+  <% end %>
+<% end %>
