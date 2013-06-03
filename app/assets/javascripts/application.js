@@ -13,3 +13,48 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+// var playlistSongs = []
+
+// interval(1000, function(){
+//   var that = this;
+//   $.get("/playlist", function(response) {
+//     that.playlistSongs = JSON.parse(response).songs
+//     // Update dom elements
+//   });
+// });
+
+// var currentSongIndex = 0;
+
+// function currentSong(songIndex) {
+//   return gon.songs[songIndex];
+// }
+
+// var tag = document.createElement('script');
+
+// tag.src = "https://www.youtube.com/iframe_api";
+// var firstScriptTag = document.getElementsByTagName('script')[0];
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// // This function creates an <iframe> (and YouTube player)
+// //    after the API code downloads.
+// var player;
+// function onYouTubeIframeAPIReady() {
+//   player = new YT.Player('player', {
+//     height: '390',
+//     width: '640',
+//     videoId: currentSong(currentSongIndex),
+//     events: {
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+// }
+
+// //The API calls this function when the player's state changes.
+// function onPlayerStateChange(event) {
+//   console.log(event)
+//   if (event.data == YT.PlayerState.ENDED) {
+//     currentSongIndex = currentSongIndex + 1;
+//     event.target.loadVideoById(currentSong(currentSongIndex));
+//   }
+// }

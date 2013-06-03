@@ -1,6 +1,6 @@
 <h1><%= @playlist.name %></h1>
 
-<%= form_tag("/searches", :method => "post") do %>
+<%= form_tag("/searches", :method => "post", remote: true) do %>
   <div class="field">
     <%= text_field_tag :query %>
     <%= hidden_field_tag :playlist_id, @playlist.id %>
@@ -10,14 +10,7 @@
   </div>
 <% end %>
 
-<h1>Search Results</h1>
-<% unless @results.nil? %>
-  <% @results.each do |result| %>
-    <ul>
-      <li><%= result.title %> | <%= link_to "Add to Playlist", songs_path(:t => result.title, :id => result.youtube_id, :pic => result.thumbnail, :playlist_id => @playlist.id), :method => "post" %></li>
-    </ul>
-  <% end %>
-<% end %>
+<div id="search_results"></div>
 
 <h1>Songs</h1>
 <% if @playlist.songs.empty? %>
@@ -28,4 +21,8 @@
       <li><%= song.title %> | <%= link_to "remove", remove_song_path(:playlist_id => @playlist.id, :song_id => song.id) %> </li>
     </ul>
   <% end %>
+<% end %>
+
+<% unless @playlist.songs.empty? %>
+  <div id="player"></div>
 <% end %>

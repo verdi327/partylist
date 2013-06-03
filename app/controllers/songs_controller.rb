@@ -1,9 +1,5 @@
 class SongsController < ApplicationController
 
-  def new
-    @song = Song.new
-  end
-
   def create
     song = Song.new(:youtube_id => params["id"], :thumbnail => params["pic"], :title => params["t"])
     if song.save

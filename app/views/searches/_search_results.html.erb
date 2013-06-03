@@ -1,0 +1,6 @@
+<h1>Search Results</h1>
+<% @search_results.each do |result| %>
+  <ul>
+    <li><%= result.title %> | <%= link_to "Add to Playlist", songs_path(:t => result.title, :id => result.youtube_id, :pic => result.thumbnail, :playlist_id => @playlist.id), :method => "post" %></li>
+  </ul>
+<% end %>
