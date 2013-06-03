@@ -1,0 +1,7 @@
+<%= form_tag(songs_path, method: "post") do %>
+  <%= hidden_field_tag :t, result.title %>
+  <%= hidden_field_tag :id, result.youtube_id %>
+  <%= hidden_field_tag :pic, result.thumbnail %>
+  <%= hidden_field_tag :playlist_id, @playlist.id %>
+  <%= submit_tag "Add to Playlist" %>
+<% end %>

@@ -1,6 +1,7 @@
 <h1>Search Results</h1>
+<p><%= link_to "clear results", playlist_path(@playlist) %></p>
 <% @search_results.each do |result| %>
   <ul>
-    <li><%= result.title %> | <%= link_to "Add to Playlist", songs_path(:t => result.title, :id => result.youtube_id, :pic => result.thumbnail, :playlist_id => @playlist.id), :method => "post" %></li>
+    <li><%= result.title %> | <%= render partial: "songs/add_song", locals: { result: result, playlist: @playlist } %></li>
   </ul>
 <% end %>
