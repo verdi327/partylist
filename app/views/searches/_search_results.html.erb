@@ -1,6 +1,6 @@
 <h1>Search Results</h1>
 <p><%= link_to "clear results", playlist_path(@playlist) %></p>
-<% @search_results.each do |result| %>
+<% @search_results.each_with_index do |result, i| %>
   <ul>
     <li><%= result.title %> | <%= render partial: "songs/add_song", locals: { result: result, playlist: @playlist } %></li>
   </ul>

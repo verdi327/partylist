@@ -8,11 +8,11 @@
 <% if @playlist.songs.empty? %>
   <h3>No Songs have been added yet!</h3>
 <% else %>
-  <h3><% @playlist.songs.each do |song| %></h3>
-    <ul>
-      <li><%= song.title %> | <%= link_to "remove", remove_song_path(:playlist_id => @playlist.id, :song_id => song.id) %> </li>
-    </ul>
+<ul id="songs">
+  <% @playlist.songs.each do |song| %>
+    <li></li>
   <% end %>
+</ul>
 <% end %>
 
 <% unless @playlist.songs.empty? %>
