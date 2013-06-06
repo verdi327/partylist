@@ -7,13 +7,14 @@
 <h1>Songs</h1>
 <% if @playlist.songs.empty? %>
   <h3>No Songs have been added yet!</h3>
-<% else %>
-<ul id="songs">
-  <% @playlist.songs.each do |song| %>
-    <li></li>
-  <% end %>
-</ul>
 <% end %>
+
+<ul id="songs">
+<% @playlist.songs.each do |song| %>
+  <li id="song_<%= song.id %>"><%= render :partial => "songs/song", :locals => {:song => song, :playlist => @playlist} %></li>
+<% end %>
+</ul>
+
 
 <% unless @playlist.songs.empty? %>
   <div id="player"></div>

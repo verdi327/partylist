@@ -8,8 +8,6 @@ class SongsController < ApplicationController
     else
       flash[:notice] = "The song could not be saved!"
     end
-    respond_to do |format|
-      format.js
-    end
+    respond_to { |format| format.js }
   end
 end
