@@ -15,7 +15,7 @@
 <% end %>
 </ul>
 
+<div id="player"></div>
 
-<% unless @playlist.songs.empty? %>
-  <div id="player"></div>
-<% end %>
+<%= javascript_include_tag 'public/jquery_cookie' %>
+

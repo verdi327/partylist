@@ -14,47 +14,76 @@
 //= require jquery_ujs
 //= require_tree .
 
-// var playlistSongs = []
+function currentSong() {
+  if ($.cookie("playlist")){
+    var i = +$.cookie("song_index");
+    var songs = $.cookie("playlist").split(",");
+    if (i === songs.length) {
+      $.cookie("song_index", 0);
+      i = $.cookie("song_index");
+    };
+    return songs[i];
+  }
+  else {return null}
+}
 
-// interval(1000, function(){
-//   var that = this;
-//   $.get("/playlist", function(response) {
-//     that.playlistSongs = JSON.parse(response).songs
-//     // Update dom elements
-//   });
-// });
+function addSong(youtube_id) {
+  if ($.cookie("playlist")) {
+    var songs = $.cookie("playlist").split(",");
+    songs.push(youtube_id);
+    $.cookie("playlist", songs);
+  }
+  else {
+    $.cookie("playlist", youtube_id);
+    $.cookie("song_index", 0);
+    onYouTubeIframeAPIReady()
+  }
+}
 
-// var currentSongIndex = 0;
+function removeSong(youtube_id) {
+  var songs = $.cookie("playlist").split(",");
+  songs.splice(songs.indexOf(youtube_id), 1);
+  $.cookie("playlist", songs)
+}
 
-// function currentSong(songIndex) {
-//   return gon.songs[songIndex];
-// }
+function play(youtube_id){
+  var songs = $.cookie("playlist").split(",");
+  var i = songs.indexOf(youtube_id);
+  $.cookie("song_index", i);
+  onYouTubeIframeAPIReady()
+}
 
-// var tag = document.createElement('script');
+// Need to understand how the onYouTubeIframeAPIReady function works
+// The proper youtube_id is being returned, but I don't think you can just
+// call the player and it will reload?
 
-// tag.src = "https://www.youtube.com/iframe_api";
-// var firstScriptTag = document.getElementsByTagName('script')[0];
-// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var tag = document.createElement('script');
 
-// // This function creates an <iframe> (and YouTube player)
-// //    after the API code downloads.
-// var player;
-// function onYouTubeIframeAPIReady() {
-//   player = new YT.Player('player', {
-//     height: '390',
-//     width: '640',
-//     videoId: currentSong(currentSongIndex),
-//     events: {
-//       'onStateChange': onPlayerStateChange
-//     }
-//   });
-// }
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// //The API calls this function when the player's state changes.
-// function onPlayerStateChange(event) {
-//   console.log(event)
-//   if (event.data == YT.PlayerState.ENDED) {
-//     currentSongIndex = currentSongIndex + 1;
-//     event.target.loadVideoById(currentSong(currentSongIndex));
-//   }
-// }
+// This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+  var song = currentSong()
+  if (song){
+    player = new YT.Player('player', {
+      height: '390',
+      width: '640',
+      videoId: song,
+      playerVars: {autoplay:1},
+      events: { 'onStateChange': onPlayerStateChange }
+    });
+  }
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.ENDED) {
+    var i = +$.cookie("song_index") + 1;
+    $.cookie("song_index", i);
+    event.target.loadVideoById(currentSong());
+  }
+}
+

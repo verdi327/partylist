@@ -1,6 +1,6 @@
 class PlaylistsSongsController < ApplicationController
   def destroy
-    @song_id = params["song_id"]
+    @song = Song.find(params["song_id"])
     playlist_song = PlaylistsSong.where(playlist_id: params["playlist_id"], song_id: params["song_id"]).first
     playlist_song.destroy
     respond_to { |format| format.js }

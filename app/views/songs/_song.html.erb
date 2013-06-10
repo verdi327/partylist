@@ -1,1 +1,1 @@
-<%= song.title %> | <%= link_to "remove", remove_song_path(:playlist_id => @playlist.id, :song_id => song.id), :remote => true %>
+<%= song.title %> | <%= link_to "play", "#", :id => "play-song-#{song.id}", :onclick => "play('#{song.youtube_id}');return false" %> | <%= link_to "remove", remove_song_path(:playlist_id => @playlist.id, :song_id => song.id), :remote => true %>
