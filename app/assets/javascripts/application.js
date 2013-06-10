@@ -50,7 +50,7 @@ function play(youtube_id){
   var songs = $.cookie("playlist").split(",");
   var i = songs.indexOf(youtube_id);
   $.cookie("song_index", i);
-  onYouTubeIframeAPIReady()
+  player.loadVideoById(youtube_id)
 }
 
 // Need to understand how the onYouTubeIframeAPIReady function works
